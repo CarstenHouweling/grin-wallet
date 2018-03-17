@@ -1,0 +1,39 @@
+@import '~@angular/material/theming';
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$primary: mat-palette($mat-light-green, 300);
+$accent:  mat-palette($mat-gray, A100);
+
+// The warn palette is optional (defaults to red).
+$warn:    mat-palette($mat-red);
+
+$mat-dark-theme-background: (
+  status-bar: black,
+  app-bar:    map_get($mat-grey, 900),
+  background: #303030,
+  hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+  card:       map_get($mat-grey, 800),
+  dialog:     map_get($mat-grey, 800),
+  disabled-button: rgba(white, 0.12),
+  raised-button: map-get($mat-grey, 800),
+  focused-button: $light-focused,
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$material-theme: mat-dark-theme($primary, $accent, $warn);
+
+$custom-typography: mat-typography-config(
+  $font-family: 'Roboto',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500),
+  $body-2: mat-typography-level(16px, 24px, 500),
+  $button: mat-typography-level(16px, 24px, 500),
+  $input: mat-typography-level(16px, 1.2, 400)
+);

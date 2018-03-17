@@ -1,0 +1,49 @@
+<div fxLayout="column" [style.height]="'100vh'">
+  <div fxFlex="5" fxLayout="column" fxLayoutAlign="start end" [style.overflow]="'hidden'">
+    <button mat-icon-button color="primary" [matMenuTriggerFor]="settingsMenu" [@fadeIn]="loadingAnimationsDone">
+      <mat-icon>settings</mat-icon>
+    </button>
+    <mat-menu #settingsMenu="matMenu">
+      <button mat-menu-item (click)="openInfo()">
+        <mat-icon>info_outline</mat-icon>
+        <span>Information</span>
+      </button>
+      <button mat-menu-item (click)="resetWalletLocation()">
+        <mat-icon>settings_backup_restore</mat-icon>
+        <span>Reset Wallet Location</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div fxLayout="column" fxFlex.xs="50" fxFlex.sm="40" fxFlex="30" fxLayoutAlign="center center">
+    <img src="assets/grin_logo.png" [@grinLogo]/>
+    <img src="assets/grin_text.png" [@grinText] (@grinText.done)="loadingAnimationsDone = true"/>
+  </div>
+
+
+  <!-- Wallet location is unknown -->
+  <div fxFlex fxLayout="column" fxLayoutAlign="start center" *ngIf="!walletLocation" [@fadeIn]="loadingAnimationsDone">
+    <mat-form-field [style.width]="'40%'">
+      <span matPrefix>http://</span>
+      <input matInput type="text" [(ngModel)]="walletLocationInput" (keyup.enter)="saveWalletLocation()" placeholder="Wallet location" [disabled]="loadingWalletInput"/>
+      <mat-hint align="start"><strong>e.g. 54.321.123.45:13415</strong></mat-hint>
+      <button mat-button matSuffix mat-icon-button color="primary" (click)="saveWalletLocation()" [disabled]="!isValidWalletLocation(walletLocationInput)" *ngIf="!loadingWalletInput">
+        <mat-icon>check</mat-icon>
+      </button>
+      <mat-spinner class="input-suffix-spinner" [diameter]="20" *ngIf="loadingWalletInput"></mat-spinner>
+    </mat-form-field>
+  </div>
+
+  <!-- Wallet location is known -->
+  <div fxFlex fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px" [style.text-align]="'center'" *ngIf="walletLocation" [@fadeIn]="loadingAnimationsDone">
+    <div><div>Spendable</div><label id="label-spendable">38724.347000000</label></div>
+    <div><div>Confirmed but still locked</div><label>0.000000000</label></div>
+    <div><div>Awaiting confirmation</div><label>58.792000000</label></div>
+    <div><div>Locked by previous transaction(s)</div><label>0.000000000</label></div>
+  </div>
+
+
+  <div fxFlex="5" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+    <mat-icon>info_outline</mat-icon> <b>THIS WEB WALLET IS A DUMMY</b> <mat-icon>info_outline</mat-icon>
+  </div>
+
+</div>
